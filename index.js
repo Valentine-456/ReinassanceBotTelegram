@@ -1,8 +1,16 @@
+const app = require("express")();
 const { Telegraf, Markup } = require("telegraf");
 const path = require("path");
 const keyboards = require("./modules/keyboards");
 const urls = require("./modules/url");
 require("dotenv").config({ path: "./config.env" });
+//!!!
+const port = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.redirect(process.env.TELEGRAM_BOT_URL);
+});
+app.listen(port, () => console.log(`App is running on port ${port}`));
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_API_TOKEN);
 const state = {
@@ -198,4 +206,4 @@ bot.action(
 );
 
 bot.launch();
-console.log("bot is running");
+console.log("Bot is running");
